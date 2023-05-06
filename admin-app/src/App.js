@@ -12,7 +12,6 @@ function App() {
                     <Route path="/" exact Component={Home} />
                     <Route path="/signin" Component={Signin} />
                     <Route path="/signup" Component={Signup} />
-                    <Route path="/signup" Component={Signup} />
                 </Routes>
             </Router>
         </div>
