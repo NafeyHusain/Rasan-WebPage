@@ -1,19 +1,43 @@
 import { authConstants } from "../actions/constants";
 
 const initState = {
-    name: "nafey",
+    token: null,
+    user: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        picture: "",
+    },
+    authenticate: false,
+    authenticating: false,
+    loading: false,
+    error: null,
+    message: "",
 };
 
 /* eslint-disable */
 export default (state = initState, action) => {
     console.log("====================================");
     console.log(action);
-    console.log("====================================");
     switch (action.type) {
         case authConstants.LOGIN_REQUEST:
             state = {
                 ...state,
-                ...action.payload,
+                authenticating: true,
+            };
+            break;
+        case authConstants.LOGIN_SUCCESS:
+            state = {
+                ...state,
+                user: action.payload.user,
+                token: action.payload.token,
+                authenticate: true,
+                authenticating: false,
+            };
+            break;
+        case authConstants.LOGOUT_REQUEST:
+            state = {
+                ...initState,
             };
             break;
     }
