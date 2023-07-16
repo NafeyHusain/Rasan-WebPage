@@ -5,6 +5,7 @@ const initState = {
     message: "",
     loading: false,
 };
+
 /* eslint-disable */
 export default (state = initState, action) => {
     switch (action.type) {

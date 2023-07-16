@@ -7,6 +7,10 @@ import Signup from "./containers/Signup";
 import PrivateRoute from "./components/HOC/PrivateRoute";
 import { useDispatch, useSelector } from "react-redux";
 import { isUserLoggedIn } from "./actions";
+import Products from "./containers/Products";
+import Orders from "./containers/Orders";
+import Category from "./containers/Category";
+
 function App() {
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
@@ -24,6 +28,37 @@ function App() {
                     element={
                         <PrivateRoute>
                             <Home />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/products"
+                    element={
+                        <PrivateRoute>
+                            <Products />
+                        </PrivateRoute>
+                    }
+                />
+                {/* <Route exact path="/category" 
+                    render=(props => (<PrivateRoute path="/category" component={Wrapper}>))
+/></PrivateRoute>
+<Route
+    path="/category" 
+
+/> */}
+                <Route
+                    path="/category"
+                    element={
+                        <PrivateRoute>
+                            <Category />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/orders"
+                    element={
+                        <PrivateRoute>
+                            <Orders />
                         </PrivateRoute>
                     }
                 />
