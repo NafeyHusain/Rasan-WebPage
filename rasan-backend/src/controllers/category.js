@@ -38,10 +38,10 @@ exports.addCategory = (req, res) => {
     const cat = new Category(categoryObj);
 
     cat.save()
-        .then((data) => {
-            if (data) {
+        .then((category) => {
+            if (category) {
                 return res.status(201).json({
-                    data,
+                    category,
                 });
             }
         })

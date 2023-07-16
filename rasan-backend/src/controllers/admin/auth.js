@@ -43,10 +43,11 @@ exports.signin = (req, res) => {
         .then((user) => {
             if (user) {
                 if (user.authenticate(req.body.password) && user.role === "admin") {
-                    const token = jwt.sign({ _id: user.id, role: user.role }, process.env.JWT_SECRET, {
-                        expiresIn: "1h",
+                    const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
+                        expiresIn: "1d",
                     });
                     const { _id, firstName, lastName, email, role, fullName } = user;
+                    res.cookie("token", token, { expiresIn: "1d" });
                     res.status(200).json({
                         token,
                         user: {
@@ -68,4 +69,11 @@ exports.signin = (req, res) => {
         .catch((err) => {
             return res.status(400).json({ message: err.toString() });
         });
+};
+
+exports.signout = (req, res) => {
+    res.clearCookie("token");
+    res.status(200).json({
+        message: "Signout successfully...!",
+    });
 };

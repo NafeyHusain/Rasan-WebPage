@@ -24,9 +24,7 @@ mongoose
         }
     )
     .then(() => {
-        console.log("====================================");
         console.log("database connected");
-        console.log("====================================");
     });
 
 app.use(cors());
