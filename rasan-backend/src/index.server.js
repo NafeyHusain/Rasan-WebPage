@@ -12,6 +12,8 @@ const categoryRoute = require("./routes/category");
 const productRoute = require("./routes/product");
 const cartRoutes = require("./routes/cart");
 
+const initialData = require("./routes/admin/initialData");
+
 env.config();
 
 // mongodb+srv://root:<password>@cluster0.8wusolc.mongodb.net/test
@@ -37,6 +39,7 @@ app.use("/api", cartRoutes);
 
 app.use("/api", categoryRoute);
 app.use("/api", productRoute);
+app.use("/api", initialData);
 
 app.listen(process.env.PORT, () => {
     console.log(`server running on port ${process.env.PORT}`);
