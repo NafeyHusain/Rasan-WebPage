@@ -51,6 +51,10 @@ exports.getProductsBySlug = (req, res) => {
                         if (products.length > 0) {
                             return res.status(200).json({
                                 products,
+                                priceRange: {
+                                    under5k: 5000,
+                                    under10k: 10000,
+                                },
                                 productsByPrice: {
                                     under5k: products.filter((product) => product.price <= 5000),
                                     under10k: products.filter(
@@ -72,4 +76,23 @@ exports.getProductsBySlug = (req, res) => {
                 error,
             });
         });
+};
+
+exports.getProductDetailsById = (req, res) => {
+    console.log("*************");
+    console.log(req.params);
+    const { productId } = req.params;
+    if (productId) {
+        Product.findOne({ _id: productId })
+            .then(async (product) => {
+                if (product) {
+                    res.status(200).json({ product });
+                } else {
+                    return res.status(404).json({ message: err.toString() });
+                }
+            })
+            .catch((err) => {
+                return res.status(400).json({ message: err.toString() });
+            });
+    }
 };

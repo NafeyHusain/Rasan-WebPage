@@ -43,3 +43,45 @@ export const addCategory = (form) => {
         }
     };
 };
+
+export const updateCategories = (form) => {
+    return async (dispatch) => {
+        dispatch({ type: categoryConstansts.UPDATE_CATEGORIES_REQUEST });
+        try {
+            const res = await axios.post(`/category/update`, form);
+            if (res.status === 201) {
+                dispatch({ type: categoryConstansts.UPDATE_CATEGORIES_SUCCESS });
+                dispatch(getAllCategory());
+            } else {
+                dispatch({
+                    type: categoryConstansts.UPDATE_CATEGORIES_FAILURE,
+                    payload: res.data.error,
+                });
+            }
+        } catch (error) {
+            console.log(error.response);
+        }
+    };
+};
+
+export const deleteCategories = (ids) => {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: categoryConstansts.DELETE_CATEGORIES_REQUEST });
+            const res = await axios.post(`/category/delete`, {
+                payload: {
+                    ids,
+                },
+            });
+            if (res.status === 200) {
+                dispatch(getAllCategory());
+                dispatch({ type: categoryConstansts.DELETE_CATEGORIES_SUCCESS });
+            } else {
+                const { error } = res.data;
+                dispatch({ type: categoryConstansts.DELETE_CATEGORIES, payload: { error } });
+            }
+        } catch (error) {
+            console.log(error.response);
+        }
+    };
+};

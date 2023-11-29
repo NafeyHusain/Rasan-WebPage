@@ -42,9 +42,11 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
     User.findOne({ email: req.body.email })
-        .then((user) => {
+        .then(async (user) => {
             if (user) {
-                if (user.authenticate(req.body.password)) {
+                const isPassword = await user.authenticate(req.body.password);
+
+                if (isPassword && user.role === "user") {
                     const token = jwt.sign({ _id: user.id, _role: user.role }, process.env.JWT_SECRET, {
                         expiresIn: "1h",
                     });
@@ -61,13 +63,15 @@ exports.signin = (req, res) => {
                         },
                     });
                 } else {
-                    return res.status(400).json({ message: "Invalid password" });
+                    return res.status(404).json({
+                        message: "Something went wrong",
+                    });
                 }
             } else {
-                return res.status(400).json({ message: "went wrong" });
+                return res.status(400).json({ message: "Something went wrong" });
             }
         })
         .catch((err) => {
-            return res.status(400).json({ message: err.toString() });
+            res.status(400).json({ message: err.toString() });
         });
 };

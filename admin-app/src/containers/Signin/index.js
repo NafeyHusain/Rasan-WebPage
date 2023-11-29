@@ -30,7 +30,7 @@ const Signin = (props) => {
                                 label="Email address"
                                 type="email"
                                 placeholder="Enter email"
-                                errorMessage="We'll never share your email with anyone else"
+                                errormessage="We'll never share your email with anyone else"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />

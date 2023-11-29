@@ -25,36 +25,17 @@ const buildNewCategories = (parentId, categories, category) => {
 
     for (let cat of categories) {
         if (cat._id === parentId) {
-            // const newCategory = {
-            //     _id: category._id,
-            //     name: category.name,
-            //     slug: category.slug,
-            //     parentId: category.parentId,
-            //     type: category.type,
-            //     children: [],
-            // };
-            // myCategories.push({
-            //     ...cat,
-            //     children: cat.children.length > 0 ? [...cat.children, newCategory] : [newCategory],
-            // });
+            const newCategory = {
+                _id: category._id,
+                name: category.name,
+                slug: category.slug,
+                parentId: category.parentId,
+                type: category.type,
+                children: [],
+            };
             myCategories.push({
                 ...cat,
-                children: cat.children
-                    ? buildNewCategories(
-                          parentId,
-                          [
-                              {
-                                  _id: category._id,
-                                  name: category.name,
-                                  slug: category.slug,
-                                  parentId: category.parentId,
-                                  type: category.type,
-                                  children: category.children,
-                              },
-                          ],
-                          category
-                      )
-                    : [],
+                children: cat.children.length > 0 ? [...cat.children, newCategory] : [newCategory],
             });
         } else {
             myCategories.push({
@@ -98,6 +79,8 @@ export default (state = initState, action) => {
         case categoryConstansts.ADD_NEW_CATEGORY_FAILURE:
             state = {
                 ...initState,
+                loading: false,
+                error: action.payload.error,
             };
             break;
         case categoryConstansts.UPDATE_CATEGORIES_REQUEST:

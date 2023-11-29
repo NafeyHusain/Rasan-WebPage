@@ -11,16 +11,21 @@ import Products from "./containers/Products";
 import Orders from "./containers/Orders";
 import Category from "./containers/Category";
 import { getInitialData } from "./actions/initialData.actions";
+import NewPage from "./containers/NewPage";
 
 function App() {
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
+
+    // componentDidMount or componenetDidUpdate
     useEffect(() => {
         if (!auth.authenticate) {
             dispatch(isUserLoggedIn());
         }
-        dispatch(getInitialData());
-    }, []);
+        if (auth.authenticate) {
+            dispatch(getInitialData());
+        }
+    }, [auth.authenticate]);
 
     return (
         <div className="App">
@@ -38,6 +43,14 @@ function App() {
                     element={
                         <PrivateRoute>
                             <Products />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/page"
+                    element={
+                        <PrivateRoute>
+                            <NewPage />
                         </PrivateRoute>
                     }
                 />

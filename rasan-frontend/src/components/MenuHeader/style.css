@@ -42,6 +42,7 @@
       display: none;
       border: 1px solid #eee;
       box-shadow: 0 2px 2px -2px #333;
+      z-index:1;
 }
 
 .menuHeader>ul>li:hover ul {

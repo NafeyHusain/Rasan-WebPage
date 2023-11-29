@@ -91,7 +91,7 @@ const Products = (props) => {
 
     const renderAddProductModal = () => {
         return (
-            <Modal show={show} handleClose={handleClose} modelTitle={"Add New Product"}>
+            <Modal show={show} handleClose={() => setShow(false)} onSubmit={handleClose} modelTitle={"Add New Product"}>
                 <Input
                     label="Name"
                     placeholder={"Product Name"}
