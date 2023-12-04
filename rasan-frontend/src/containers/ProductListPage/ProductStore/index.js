@@ -4,12 +4,14 @@ import { getProductsBySlug } from "../../../actions";
 import { useParams } from "react-router-dom";
 import { generatePublicUrl } from "../../../urlConfig";
 import { Link } from "react-router-dom";
+import Card from "../../../components/UI/Card";
 
 const ProductStore = (props) => {
     const product = useSelector((state) => state.product);
     const [priceRange, setPriceRange] = useState({
         under5k: 5000,
         under10k: 10000,
+        under15k: 15000,
     });
     const { slug } = useParams();
 
@@ -22,13 +24,12 @@ const ProductStore = (props) => {
         <>
             {Object.keys(product.productsByPrice).map((key, index) => {
                 return (
-                    <div className="card" key={index}>
-                        <div className="cardHeader">
-                            <div>
-                                {slug} under {priceRange[key]}
-                            </div>
-                            <button>View all</button>
-                        </div>
+                    <Card
+                        key={index}
+                        headerleft={` ${slug} under ${priceRange[key]}`}
+                        headerright={<button>View all</button>}
+                        style={{ width: "calc(100%-40px)", margin: "20px" }}
+                    >
                         <div style={{ display: "flex" }}>
                             {product.productsByPrice[key].map((product, index) => (
                                 <Link
@@ -51,7 +52,7 @@ const ProductStore = (props) => {
                                 </Link>
                             ))}
                         </div>
-                    </div>
+                    </Card>
                 );
             })}
         </>

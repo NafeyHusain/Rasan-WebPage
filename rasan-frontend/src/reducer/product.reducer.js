@@ -8,6 +8,8 @@ const initState = {
     productsByPrice: {},
     pageRequest: false,
     page: {},
+    productDetails: {},
+    loading: false,
     error: null,
 };
 

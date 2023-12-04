@@ -6,7 +6,7 @@ import flipkartLogo from "../../images/logo/flipkart.png";
 import { IoIosArrowDown, IoIosCart, IoIosSearch } from "react-icons/io";
 import { Modal, MaterialInput, MaterialButton, DropdownMenu } from "../MaterialUI";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../actions";
+import { login, signout } from "../../actions";
 
 /**
  * @author
@@ -23,6 +23,10 @@ const Header = (props) => {
 
     const userLogin = () => {
         dispatch(login({ email, password }));
+    };
+
+    const logout = () => {
+        dispatch(signout());
     };
 
     useEffect(() => {
@@ -43,6 +47,7 @@ const Header = (props) => {
                     { label: "Wishlist", href: "", icon: null },
                     { label: "Rewards", href: "", icon: null },
                     { label: "Gift Cards", href: "", icon: null },
+                    { label: "Logout", href: "", icon: null, onClick: logout },
                 ]}
                 firstMenu={
                     <div className="firstmenu">
