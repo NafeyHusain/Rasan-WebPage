@@ -147,3 +147,10 @@
       padding: 40px 33px;
       align-items: center;
 }
+
+.loginInputContainer {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 30px;
+      margin: 40px 0;
+}

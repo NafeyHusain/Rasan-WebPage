@@ -11,6 +11,7 @@ const adminRoutes = require("./routes/admin/auth");
 const categoryRoute = require("./routes/category");
 const productRoute = require("./routes/product");
 const cartRoutes = require("./routes/cart");
+const addressRoutes = require("./routes/address");
 const pageRoutes = require("./routes/admin/page");
 
 const initialData = require("./routes/admin/initialData");
@@ -37,6 +38,8 @@ app.use("/public", express.static(path.join(__dirname, "uploads")));
 app.use("/api", authRoutes);
 app.use("/api", adminRoutes);
 app.use("/api", cartRoutes);
+
+app.use("/api", addressRoutes);
 
 app.use("/api", categoryRoute);
 app.use("/api", productRoute);
