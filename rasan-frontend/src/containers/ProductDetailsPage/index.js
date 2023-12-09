@@ -45,7 +45,7 @@ const ProductDetailsPage = (props) => {
                 <div className="flexRow">
                     <div className="verticalImageStack">
                         {product.productDetails.productPictures.map((thumb, index) => (
-                            <div className="thumbnail">
+                            <div key={index} className="thumbnail">
                                 <img src={generatePublicUrl(thumb.img)} alt={thumb.img} />
                             </div>
                         ))}
@@ -98,19 +98,19 @@ const ProductDetailsPage = (props) => {
                     <div className="breed">
                         <ul>
                             <li>
-                                <a href="#">Home</a>
+                                <a href="1">Home</a>
                                 <IoIosArrowForward />
                             </li>
                             <li>
-                                <a href="#">Mobiles</a>
+                                <a href="2">Mobiles</a>
                                 <IoIosArrowForward />
                             </li>
                             <li>
-                                <a href="#">Samsung</a>
+                                <a href="3">Samsung</a>
                                 <IoIosArrowForward />
                             </li>
                             <li>
-                                <a href="#">{product.productDetails.name}</a>
+                                <a href="4">{product.productDetails.name}</a>
                             </li>
                         </ul>
                     </div>
