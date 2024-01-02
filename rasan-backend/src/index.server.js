@@ -2,6 +2,7 @@ const express = require("express");
 const env = require("dotenv");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const path = require("path");
 
@@ -10,6 +11,10 @@ const adminRoutes = require("./routes/admin/auth");
 const categoryRoute = require("./routes/category");
 const productRoute = require("./routes/product");
 const cartRoutes = require("./routes/cart");
+const addressRoutes = require("./routes/address");
+const pageRoutes = require("./routes/admin/page");
+
+const initialData = require("./routes/admin/initialData");
 
 env.config();
 
@@ -23,11 +28,10 @@ mongoose
         }
     )
     .then(() => {
-        console.log("====================================");
         console.log("database connected");
-        console.log("====================================");
     });
 
+app.use(cors());
 app.use(express.json());
 app.use("/public", express.static(path.join(__dirname, "uploads")));
 
@@ -35,8 +39,13 @@ app.use("/api", authRoutes);
 app.use("/api", adminRoutes);
 app.use("/api", cartRoutes);
 
+app.use("/api", addressRoutes);
+
 app.use("/api", categoryRoute);
 app.use("/api", productRoute);
+app.use("/api", pageRoutes);
+
+app.use("/api", initialData);
 
 app.listen(process.env.PORT, () => {
     console.log(`server running on port ${process.env.PORT}`);
