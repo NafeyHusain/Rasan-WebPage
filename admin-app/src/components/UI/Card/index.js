@@ -1,12 +1,18 @@
 import React from "react";
 import "./style.css";
+
+/**
+ * @author
+ * @function Card
+ **/
+
 const Card = (props) => {
     return (
         <div className="card" {...props}>
-            {(props.headerleft || props.headerright) && (
+            {(props.headerLeft || props.headerRight) && (
                 <div className="cardHeader">
-                    {props.headerleft && <div>{props.headerleft}</div>}
-                    {props.headerright && <div>{props.headerright}</div>}
+                    {props.headerLeft && <div>{props.headerLeft}</div>}
+                    {props.headerRight && props.headerRight}
                 </div>
             )}
 
