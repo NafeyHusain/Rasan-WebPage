@@ -62,7 +62,7 @@ const Products = (props) => {
             <Table style={{ fontSize: 12 }} responsive="sm">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>SL No</th>
                         <th>Name</th>
                         <th>Price</th>
                         <th>Quantity</th>
@@ -72,9 +72,9 @@ const Products = (props) => {
                 </thead>
                 <tbody>
                     {product.products.length > 0
-                        ? product.products.map((product) => (
+                        ? product.products.map((product, index) => (
                               <tr onClick={() => showProductDetailModal(product)} key={product._id}>
-                                  <td>2</td>
+                                  <td>{index}</td>
                                   <td>{product.name}</td>
                                   <td>{product.price}</td>
                                   <td>{product.quantity}</td>

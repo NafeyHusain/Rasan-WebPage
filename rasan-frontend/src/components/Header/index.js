@@ -43,6 +43,11 @@ const Header = (props) => {
                     { label: "My Profile", href: "", icon: null },
                     { label: "Coupans", href: "", icon: null },
                     { label: "Flipkart Plus Zone", href: "", icon: null },
+                    {
+                        label: "Orders",
+                        href: `/account/orders`,
+                        icon: null,
+                    },
                     { label: "Orders", href: "", icon: null },
                     { label: "Wishlist", href: "", icon: null },
                     { label: "Rewards", href: "", icon: null },
@@ -70,7 +75,14 @@ const Header = (props) => {
                 menus={[
                     { label: "My Profile", href: "", icon: null },
                     { label: "Flipkart Plus Zone", href: "", icon: null },
-                    { label: "Orders", href: "", icon: null },
+                    {
+                        label: "Orders",
+                        href: `/account/orders`,
+                        icon: null,
+                        onClick: () => {
+                            !auth.authenticate && setLoginModal(true);
+                        },
+                    },
                     { label: "Wishlist", href: "", icon: null },
                     { label: "Rewards", href: "", icon: null },
                     { label: "Gift Cards", href: "", icon: null },
@@ -175,7 +187,7 @@ const Header = (props) => {
                         ]}
                     />
                     <div>
-                        <a className="cart">
+                        <a href={`/cart`} className="cart">
                             <IoIosCart />
                             <span style={{ margin: "0 10px" }}>Cart</span>
                         </a>
