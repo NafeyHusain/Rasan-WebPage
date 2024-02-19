@@ -34,5 +34,6 @@ exports.initialData = async (req, res) => {
     res.status(200).json({
         categories: createCategories(categories),
         products,
+        orders,
     });
 };

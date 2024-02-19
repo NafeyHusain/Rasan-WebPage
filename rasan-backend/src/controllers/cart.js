@@ -83,3 +83,27 @@ exports.getCartItems = (req, res) => {
             return res.status(400).json({ err });
         });
 };
+
+exports.removeCartItems = (req, res) => {
+    const { productId } = req.body.payload;
+    Cart.updateOne(
+        { user: req.user._id },
+        {
+            $pull: {
+                cartItems: {
+                    product: productId,
+                },
+            },
+        }
+    )
+        .then((result) => {
+            if (result) {
+                return res.status(202).json({ message: "Cart updated successfully" });
+            } else {
+                return res.status(404).json({ message: "No matching cart item found" });
+            }
+        })
+        .catch((error) => {
+            return res.status(400).json({ error: error.message });
+        });
+};

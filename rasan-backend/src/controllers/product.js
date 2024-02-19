@@ -55,6 +55,8 @@ exports.getProductsBySlug = (req, res) => {
                                     priceRange: {
                                         under5k: 5000,
                                         under10k: 10000,
+                                        under15k: 15000,
+                                        under20k: 20000,
                                     },
                                     productsByPrice: {
                                         under5k: products.filter((product) => product.price <= 5000),
@@ -100,4 +102,33 @@ exports.getProductDetailsById = (req, res) => {
                 return res.status(400).json({ message: err.toString() });
             });
     }
+};
+
+// new update
+exports.deleteProductById = (req, res) => {
+    const { productId } = req.body.payload;
+    if (productId) {
+        Product.deleteOne({ _id: productId })
+            .then((product) => {
+                if (product) {
+                    res.status(200).json({ product });
+                } else {
+                    return res.status(404).json({ message: err.toString() });
+                }
+            })
+            .catch((err) => {
+                return res.status(400).json({ message: err.toString() });
+            });
+    } else {
+        res.status(400).json({ error: "Params required" });
+    }
+};
+
+exports.getProducts = async (req, res) => {
+    const products = await Product.find({})
+        .select("_id name price quantity slug description productPictures category")
+        .populate({ path: "category", select: "_id name" })
+        .exec();
+
+    res.status(200).json({ products });
 };

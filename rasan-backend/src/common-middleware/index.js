@@ -30,7 +30,7 @@ exports.requireSignin = (req, res, next) => {
 };
 
 exports.userMiddleWare = (req, res, next) => {
-    if (req.user._role !== "user") {
+    if (req.user._role === "user") {
         return res.status(400).json({ message: "User access denied" });
     }
     next();

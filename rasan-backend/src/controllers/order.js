@@ -1,3 +1,4 @@
+const address = require("../models/address");
 const cart = require("../models/cart");
 const Order = require("../models/order");
 
@@ -62,5 +63,37 @@ exports.getOrders = (req, res) => {
         })
         .catch((err) => {
             return res.status(400).json({ message: err.toString() });
+        });
+};
+
+exports.getOrder = (req, res) => {
+    Order.findOne({ _id: req.body.orderId })
+        .populate("items.productId", "_id name productPictures")
+        .lean()
+        .then((order) => {
+            if (order) {
+                console.log(order);
+
+                address
+                    .findOne({ user: req.user._id })
+                    .then((address) => {
+                        if (address) {
+                            order.address = address.address.find(
+                                (adr) => adr._id.toString() == order.addressId.toString()
+                            );
+                            res.status(200).json({ order });
+                        } else {
+                            return res.status(404).json({ message: error.toString() });
+                        }
+                    })
+                    .catch((error) => {
+                        return res.status(404).json({ message: error.toString() });
+                    });
+            } else {
+                return res.status(404).json({ message: err.toString() });
+            }
+        })
+        .catch((error) => {
+            return res.status(400).json({ message: error.toString() });
         });
 };

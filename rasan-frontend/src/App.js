@@ -10,6 +10,7 @@ import CartPage from "./containers/CartPage";
 import { updateCart } from "./actions/cart.action";
 import CheckoutPage from "./containers/CheckoutPage";
 import OrderPage from "./containers/OrderPage";
+import OrderDetailsPage from "./containers/OrderDetailsPage";
 function App() {
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
@@ -29,7 +30,7 @@ function App() {
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/account/orders" element={<OrderPage />} />
-
+                <Route path="/order_details/:orderId" element={<OrderDetailsPage />} />
                 <Route path="/:productSlug/:productId/p" element={<ProductDetailsPage />} />
                 <Route path="/:slug" element={<ProductListPage />} />
             </Routes>

@@ -33,7 +33,7 @@ const OrderPage = (props) => {
             {user.orders.map((order) => {
                 return order.items.map((item) => (
                     <Card style={{ margin: "5px 0" }}>
-                        <div className="orderItemContainer">
+                        <Link to={`/order_details/${order._id}`} className="orderItemContainer">
                             <div className="orderImgContainer">
                                 <img
                                     alt=""
@@ -49,7 +49,7 @@ const OrderPage = (props) => {
                                 </div>
                                 <div>{order.paymentStatus}</div>
                             </div>
-                        </div>
+                        </Link>
                     </Card>
                 ));
             })}

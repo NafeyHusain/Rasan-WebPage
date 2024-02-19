@@ -5,14 +5,13 @@ import { useParams } from "react-router-dom";
 import { generatePublicUrl } from "../../../urlConfig";
 import { Link } from "react-router-dom";
 import Card from "../../../components/UI/Card";
+import { MaterialButton } from "../../../components/MaterialUI";
+import Rating from "../../../components/UI/Rating";
+import Price from "../../../components/UI/Price";
 
 const ProductStore = (props) => {
     const product = useSelector((state) => state.product);
-    const [priceRange, setPriceRange] = useState({
-        under5k: 5000,
-        under10k: 10000,
-        under15k: 15000,
-    });
+    const priceRange = product.priceRange;
     const { slug } = useParams();
 
     const dispatch = useDispatch();
@@ -27,7 +26,16 @@ const ProductStore = (props) => {
                     <Card
                         key={index}
                         headerleft={` ${slug} under ${priceRange[key]}`}
-                        headerright={<button>View all</button>}
+                        headerright={
+                            <MaterialButton
+                                title={"VIEW ALL"}
+                                style={{
+                                    width: "96px",
+                                }}
+                                bgColor="#2874f0"
+                                fontSize="12px"
+                            />
+                        }
                         style={{ width: "calc(100%-40px)", margin: "20px" }}
                     >
                         <div style={{ display: "flex" }}>
@@ -44,10 +52,19 @@ const ProductStore = (props) => {
                                     <div className="productInfo">
                                         <div style={{ margin: "5px 0" }}>{product.name} </div>
                                         <div>
-                                            <span>4.3</span>&nbsp;
-                                            <span>2232</span>
+                                            <Rating value="4.3" />
+                                            &nbsp;&nbsp;
+                                            <span
+                                                style={{
+                                                    color: "#777",
+                                                    fontWeight: "500",
+                                                    fontSize: "12px",
+                                                }}
+                                            >
+                                                (3353)
+                                            </span>
                                         </div>
-                                        <div className="productPrice">{product.price}</div>
+                                        <Price value={product.price} />
                                     </div>
                                 </Link>
                             ))}
