@@ -1,6 +1,6 @@
+import axios from "../helpers/axios";
 import { cartConstants } from "./constants";
 import store from "../store";
-import axios from "../helpers/axios";
 
 const getCartItems = () => {
     return async (dispatch) => {
